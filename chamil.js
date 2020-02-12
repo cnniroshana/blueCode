@@ -30,7 +30,7 @@ function find(now, schedule){
 		//if time difference less than 3 hour get next working day
 		difference = expireDuration - difference;
 		// checking availability of time for next days
-		expireDate = checkForTimeDifference(difference, now);
+		expireDate = checkForTimeDifference(difference, now, schedule);
 		let val = 0;
 	}else{
 		// if expire time within current day working time
@@ -40,7 +40,7 @@ function find(now, schedule){
 	return expireDate;
 }
 
-function checkForTimeDifference(difference, now){
+function checkForTimeDifference(difference, now, schedule){
 	now = addOneDate(now);
 	now = checkDayAndIfNotOpenGetNextday(now, schedule, true);
 		
@@ -54,7 +54,7 @@ function checkForTimeDifference(difference, now){
 	if(difference >  dayTimeDifference){
 		difference -= dayTimeDifference;
 		// recursively calling same function untill the difference is full filled
-		return checkForTimeDifference(difference, now);
+		return checkForTimeDifference(difference, now, schedule);
 	}else{
 		return new Date(now.getTime() + difference);
 	}
